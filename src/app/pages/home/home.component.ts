@@ -12,14 +12,13 @@ import { ChartData } from 'src/app/core/models/ChartData';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  subscription: Subscription = new Subscription;
   public titlePage: string = 'Medals per Country';
   public olympicsData$: Observable<Olympic[]> = new Observable<Olympic[]>();
   public labelJos: string = 'JOs';
   public sumOfJOs: number = 0;
   public labelCountries: string = 'Countries';
   public sumOfCountries: number = 0;
-
+  
   public pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     plugins: {
@@ -36,9 +35,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   public pieChartType: ChartType = 'pie';
   public pieChartLegend: boolean = true;
   public pieChartData: ChartData[] = [];
+  
+  private subscription: Subscription = new Subscription;
 
   constructor(private olympicService: OlympicService, private router: Router) {}
-
+  
   ngOnInit(): void {
     this.olympicsData$ = this.olympicService.getOlympics();
 
@@ -79,10 +80,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     active?: any[] | undefined;
   }): void {
     if (active && active.length > 0) {
-      this.olympicsData$.subscribe((olympics: Olympic[]) => {
+      const sub: Subscription = this.olympicsData$.subscribe((olympics: Olympic[]) => {
         const clickedElementIndex = active[0].index;
         const countryId = olympics[clickedElementIndex].id;
         this.router.navigate(['/country', countryId]);
+        sub.unsubscribe();
       });
     }
   }

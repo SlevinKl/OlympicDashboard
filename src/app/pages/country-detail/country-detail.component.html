@@ -7,9 +7,9 @@
       <app-title [input]="countryName"></app-title>
     </div>
     <div class="labels">
-      <app-label [inputTitle]="labelEntries" [inputContent]="totalParticipations"></app-label>
-      <app-label [inputTitle]="labelMedals" [inputContent]="totalMedals"></app-label>
-      <app-label [inputTitle]="labelAthletes" [inputContent]="totalAthletes"></app-label>
+      <app-label [inputTitle]="labelEntries" [inputValue]="totalParticipations"></app-label>
+      <app-label [inputTitle]="labelMedals" [inputValue]="totalMedals"></app-label>
+      <app-label [inputTitle]="labelAthletes" [inputValue]="totalAthletes"></app-label>
     </div>
     <div style="display: block;">
       <canvas baseChart

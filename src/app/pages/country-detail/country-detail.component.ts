@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { Router } from '@angular/router';
 import { ChartType, ChartConfiguration } from 'chart.js';
 import { ChartData } from 'src/app/core/models/ChartData';
-
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-country-detail',
   templateUrl: './country-detail.component.html',
   styleUrls: ['./country-detail.component.scss']
 })
-export class CountryDetailComponent implements OnInit {
+export class CountryDetailComponent implements OnInit, OnDestroy {
   public countryData$!: Olympic | undefined;
   public countryName: string = '';
   public labelEntries: string = 'Entries';
@@ -44,6 +44,8 @@ export class CountryDetailComponent implements OnInit {
   public barChartLegend: boolean = true;
   public barChartData: ChartData[] = [];
 
+  private countryDataSubscription: Subscription = new Subscription();
+
   constructor(
     private olympicService: OlympicService,
     private route: ActivatedRoute,
@@ -51,7 +53,7 @@ export class CountryDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
+    this.countryDataSubscription = this.route.paramMap.subscribe((params) => {
       this.countryData$ = this.olympicService.getCountrybyId(Number(params.get('id')));
     });
 
@@ -88,5 +90,9 @@ export class CountryDetailComponent implements OnInit {
     } else {
       this.router.navigate(['/not-found']);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.countryDataSubscription.unsubscribe();
   }
 }

@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class LabelComponent {
   @Input({ required: true }) inputTitle!: string;
-  @Input({ required: true }) inputContent!: number;
+  @Input({ required: true }) inputValue!: number;
 }
