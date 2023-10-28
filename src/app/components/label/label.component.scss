@@ -1,0 +1,20 @@
+.label {
+  text-align: center;
+  padding: 10px;
+  border: #06828F 2px solid;
+  border-radius: 10px;
+  margin: 5px;
+
+  h5 {
+    margin: 0;
+    width: max-content;
+  }
+}
+
+
+@media (max-width: 768px) {
+  h5 {
+    font-size: 11px;
+  }
+}
+
