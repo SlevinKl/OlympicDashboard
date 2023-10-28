@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Olympic } from '../models/Olympic';
 
@@ -26,11 +26,12 @@ export class OlympicService {
     );
   }
 
-  getOlympics() {
+  getOlympics(): Observable<Olympic[]> {
     return this.olympics$.asObservable();
   }
 
   getCountrybyId(id: number): Olympic | undefined {
-    return this.olympics$.getValue().find((olympic) => olympic.id === id);
+    const country = this.olympics$.getValue().find((olympic) => olympic.id === id);
+    return country ? country : undefined;
   }
 }
