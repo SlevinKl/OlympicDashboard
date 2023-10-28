@@ -1,0 +1,19 @@
+<div class="page">
+  <div class="container">
+    <app-title [input]="titlePage"></app-title>
+    <div class="labels">
+      <app-label [inputTitle]="labelJos" [inputContent]="sumOfJOs"></app-label>
+      <app-label [inputTitle]="labelCountries" [inputContent]="sumOfCountries"></app-label>
+    </div>
+    <div class="graph" style="display: block;">
+      <canvas baseChart
+              [datasets]="pieChartData"
+              [labels]="pieChartLabels"
+              [options]="pieChartOptions"
+              [legend]="pieChartLegend"
+              [type]="pieChartType"
+              (chartClick)="chartClicked($event)">
+      </canvas>
+    </div>
+  </div>
+</div>
