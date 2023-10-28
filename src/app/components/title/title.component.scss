@@ -1,0 +1,17 @@
+h1 {
+  background-color: #06818f;
+  color: white;
+  border-radius: 10px;
+  height: 44px;
+  padding: 5px 25px;
+  width: max-content;
+  margin: 40px auto;
+  align-items: center;
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .h1 {
+    font-size: 12px;
+  }
+}
